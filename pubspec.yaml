@@ -1,6 +1,6 @@
 name: flappwritechat
 description: Flutter + Appwrite Chat Demo
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -9,41 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  appwrite: ^0.4.0-dev.1
+  websok: ^2.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter:  
+flutter:
   uses-material-design: true
-
-  
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
