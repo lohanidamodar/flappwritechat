@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   appwrite: ^0.4.0-dev.1
+  flutter_riverpod: ^0.13.0
   websok: ^2.1.2
 
 dev_dependencies:

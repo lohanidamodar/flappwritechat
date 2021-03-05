@@ -1,10 +1,33 @@
+import 'package:flappwritechat/pages/home.dart';
+import 'package:flappwritechat/pages/login.dart';
+import 'package:flappwritechat/services/api_service.dart';
+import 'package:flappwritechat/state/auth_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() { 
+    super.initState();
+    _getUser();
+  }
+
+  _getUser() async {
+    final user = await ApiService.instance.getUser();
+    if(user != null) {
+      context.read(userProvider).state = user;
+      context.read(isLoggedInProvider).state = true;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,54 +35,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AuthChecker(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class AuthChecker extends ConsumerWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
+  Widget build(BuildContext context, ScopedReader watch) {
+    final isLoggedIn = watch(isLoggedInProvider).state;
+    return isLoggedIn ? HomePage() : LoginPage();
   }
 }
