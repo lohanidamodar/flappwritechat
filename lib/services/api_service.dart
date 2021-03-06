@@ -2,6 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/user.dart';
 import 'package:flappwritechat/res/constants.dart';
+import 'package:websok/html.dart';
 
 class ApiService {
   final Client client = Client();
@@ -34,6 +35,7 @@ class ApiService {
     }
   }
 
+
   Future<User> getUser() async {
     try {
       final res = await account.get();
@@ -43,6 +45,19 @@ class ApiService {
       return null;
     }
   }
+
+  realTimeChannels(String channel)  {
+    final sok = HTMLWebsok(host: AppConstants.host, path: 'v1/realtime', tls: true, query: {
+      "project": AppConstants.projectId,
+      "channels[]": "documents.60420ad2c5bfb",
+    })..connect()..listen(
+      onData: (data) {
+        print(data);
+      }
+    );
+    assert(sok.isActive,true);
+  }
+
   Future<List<Channel>> getChannels() async {
     try {
       final res = await db.listDocuments(collectionId: AppConstants.channelsCollection);
