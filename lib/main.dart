@@ -1,3 +1,4 @@
+import 'package:flappwritechat/pages/chat_page.dart';
 import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/login.dart';
 import 'package:flappwritechat/services/api_service.dart';
@@ -37,6 +38,17 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: AuthChecker(),
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (context) {
+          switch (settings.name) {
+            case 'chat':
+            default:
+              return ChatPage(
+                channel: settings.arguments,
+              );
+          }
+        });
+      },
     );
   }
 }
