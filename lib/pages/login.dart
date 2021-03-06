@@ -1,5 +1,5 @@
 import 'package:flappwritechat/services/api_service.dart';
-import 'package:flappwritechat/state/auth_state.dart';
+import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
