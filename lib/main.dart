@@ -16,18 +16,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     _getUser();
   }
 
   _getUser() async {
     final user = await ApiService.instance.getUser();
-    if(user != null) {
+    if (user != null) {
       context.read(userProvider).state = user;
       context.read(isLoggedInProvider).state = true;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
