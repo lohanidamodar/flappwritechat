@@ -41,10 +41,12 @@ class HomePage extends ConsumerWidget {
                   onPressed: () async {
                     final channel = await ApiService.instance
                         .addChannel(context.read(titleControllerProvider).text);
-                    final cp = context.read(channelsProvider);
-                    final channels = cp.state;
-                    channels.add(channel);
-                    cp.state = channels;
+                    if(channel != null) {
+                      final cp = context.read(channelsProvider);
+                      final channels = cp.state;
+                      channels.add(channel);
+                      cp.state = channels;
+                    }
                     Navigator.pop(context);
                   },
                   child: Text("Save"),

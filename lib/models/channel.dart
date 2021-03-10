@@ -38,7 +38,7 @@ class Channel {
     if (map == null) return null;
   
     return Channel(
-      id: map['id'],
+      id: map['\$id'],
       title: map['title'],
       messages:  List<Message>.from((map['messages'] ?? []).map((x) => Message.fromMap(x))),
     );

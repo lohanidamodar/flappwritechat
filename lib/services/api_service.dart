@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/user.dart';
 import 'package:flappwritechat/res/constants.dart';
 import 'package:websok/html.dart';
+import 'package:websok/websok.dart';
 
 class ApiService {
   final Client client = Client();
@@ -35,7 +38,6 @@ class ApiService {
     }
   }
 
-
   Future<User> getUser() async {
     try {
       final res = await account.get();
@@ -48,31 +50,48 @@ class ApiService {
 
   Future<Channel> addChannel(String title) async {
     try {
-      final res = await db
-          .createDocument(collectionId: AppConstants.channelsCollection, data: {
-        "title": title,
-      }, read: [
-        'role:member'
-      ], write: [
-        'role:member'
-      ]);
+      final res = await db.createDocument(
+        collectionId: AppConstants.channelsCollection,
+        data: {
+          "title": title,
+        },
+        read: ['role:member'],
+        write: ['role:member'],
+      );
       return Channel.fromMap(res.data);
     } on AppwriteException catch (e) {
       print(e.message);
       return null;
     }
   }
-  
-  realTimeChannels(String channel)  {
-    final sok = HTMLWebsok(host: AppConstants.host, path: 'v1/realtime', tls: true, query: {
-      "project": AppConstants.projectId,
-      "channels[]": "documents.60420ad2c5bfb",
-    })..connect()..listen(
-      onData: (data) {
-        print(data);
-      }
-    );
-    assert(sok.isActive,true);
+
+  Websok realTimeChannels(String channel) {
+    final sok = HTMLWebsok(
+        host: AppConstants.host,
+        path: 'v1/realtime',
+        tls: false,
+        query: {
+          "project": AppConstants.projectId,
+          "channels[]": "documents.$channel",
+        })
+      ..connect();
+    return sok;
+  }
+
+  addMessage({Map<String, dynamic> data, String channelId}) async {
+    try {
+      await db.createDocument(
+        collectionId: AppConstants.messagesCollection,
+        data: data,
+        read: ['role:member', "*"],
+        write: ['user:${data["senderId"]}'],
+        parentDocument: channelId,
+        parentProperty: 'messages',
+        parentPropertyType: 'append',
+      );
+    } on AppwriteException catch (e) {
+      print(e.message);
+    }
   }
 
   Future<List<Channel>> getChannels() async {
