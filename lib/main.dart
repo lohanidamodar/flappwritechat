@@ -1,6 +1,7 @@
 import 'package:flappwritechat/pages/chat_page.dart';
 import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/login.dart';
+import 'package:flappwritechat/pages/signup.dart';
 import 'package:flappwritechat/services/api_service.dart';
 import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,10 @@ class _MyAppState extends State<MyApp> {
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (context) {
           switch (settings.name) {
+            case 'login':
+              return LoginPage();
+            case 'signup':
+              return SignupPage();
             case 'chat':
             default:
               return ChatPage(

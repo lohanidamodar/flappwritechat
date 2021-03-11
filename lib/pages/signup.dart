@@ -7,11 +7,18 @@ final emailControllerProvider =
     Provider<TextEditingController>((ref) => TextEditingController());
 final passwordControllerProvider =
     Provider<TextEditingController>((ref) => TextEditingController());
+final nameControllerProvider =
+    Provider<TextEditingController>((ref) => TextEditingController());
 
-class LoginPage extends ConsumerWidget {
+class SignupPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -45,7 +52,7 @@ class LoginPage extends ConsumerWidget {
                       ),
                 ),
                 Text(
-                  "Awesome login Form",
+                  "Login Form",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -66,13 +73,19 @@ class LoginPage extends ConsumerWidget {
                     children: [
                       const SizedBox(height: 20.0),
                       Text(
-                        "Log In",
+                        "Sign Up",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline5.copyWith(
                               color: Colors.red,
                             ),
                       ),
                       const SizedBox(height: 40.0),
+                      TextField(
+                        controller: watch(nameControllerProvider),
+                        decoration: InputDecoration(
+                          labelText: "Enter name",
+                        ),
+                      ),
                       TextField(
                         controller: watch(emailControllerProvider),
                         decoration: InputDecoration(
@@ -125,11 +138,6 @@ class LoginPage extends ConsumerWidget {
             ),
           )
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, 'signup'),
-        label: Text("Sign Up"),
-        icon: Icon(Icons.arrow_forward), 
       ),
     );
   }
