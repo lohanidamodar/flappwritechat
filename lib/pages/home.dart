@@ -13,6 +13,12 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home page'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () => Navigator.pushNamed(context, 'profile'),
+          ),
+        ],
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
@@ -41,7 +47,7 @@ class HomePage extends ConsumerWidget {
                   onPressed: () async {
                     final channel = await ApiService.instance
                         .addChannel(context.read(titleControllerProvider).text);
-                    if(channel != null) {
+                    if (channel != null) {
                       final cp = context.read(channelsProvider);
                       final channels = cp.state;
                       channels.add(channel);

@@ -38,6 +38,16 @@ class ApiService {
     }
   }
 
+  Future<bool> logout() async {
+    try {
+      await account.deleteSessions();
+      return true;
+    } on AppwriteException catch (e) {
+      print(e.message);
+      return false;
+    }
+  }
+
   Future<User> getUser() async {
     try {
       final res = await account.get();

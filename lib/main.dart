@@ -1,6 +1,7 @@
 import 'package:flappwritechat/pages/chat_page.dart';
 import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/login.dart';
+import 'package:flappwritechat/pages/profile.dart';
 import 'package:flappwritechat/pages/signup.dart';
 import 'package:flappwritechat/services/api_service.dart';
 import 'package:flappwritechat/state/state.dart';
@@ -48,6 +49,8 @@ class _MyAppState extends State<MyApp> {
               return LoginPage();
             case 'signup':
               return SignupPage();
+            case 'profile':
+              return ProfilePage();
             case 'chat':
             default:
               return ChatPage(
