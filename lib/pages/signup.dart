@@ -103,15 +103,15 @@ class SignupPage extends ConsumerWidget {
                       ElevatedButton(
                         child: Text("SUBMIT"),
                         onPressed: () async {
-                          final loggedIn = await ApiService.instance.login(
-                              email: context.read(emailControllerProvider).text,
-                              password: context
-                                  .read(passwordControllerProvider)
-                                  .text);
-                          if (loggedIn) {
-                            final user = await ApiService.instance.getUser();
-                            context.read(userProvider).state = user;
-                            context.read(isLoggedInProvider).state = true;
+                          final signedUp = await ApiService.instance.signup(
+                            name: context.read(nameControllerProvider).text,
+                            email: context.read(emailControllerProvider).text,
+                            password:
+                                context.read(passwordControllerProvider).text,
+                          );
+                          if(signedUp) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup successful. Login now")));
+                            Navigator.pop(context);
                           }
                         },
                         style: ElevatedButton.styleFrom(

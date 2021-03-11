@@ -28,6 +28,15 @@ class ApiService {
     return _instance;
   }
 
+  Future<bool> signup({String name, String email, String password}) async {
+    try {
+      await account.create(name: name, email: email, password: password);
+      return true;
+    } on AppwriteException catch (e) {
+      print(e.message);
+      return false;
+    }
+  }
   Future<bool> login({String email, String password}) async {
     try {
       await account.createSession(email: email, password: password);
