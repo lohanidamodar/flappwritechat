@@ -11,7 +11,11 @@ dependencies:
     sdk: flutter
   appwrite: ^0.4.0-dev.1
   flutter_riverpod: ^0.13.0
-  websok: ^2.1.2
+  # websok: ^2.1.2
+
+dependency_overrides:
+  appwrite:
+    path: /home/dlohani/Documents/projects/appwrite/sdk-generator/examples/flutter
 
 dev_dependencies:
   flutter_test:

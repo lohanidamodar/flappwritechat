@@ -4,10 +4,10 @@ packages:
   appwrite:
     dependency: "direct main"
     description:
-      name: appwrite
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0-dev.2"
+      path: "/home/dlohani/Documents/projects/appwrite/sdk-generator/examples/flutter"
+      relative: false
+    source: path
+    version: "0.0.1"
   async:
     dependency: transitive
     description:
@@ -412,14 +412,7 @@ packages:
       name: web_socket_channel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
-  websok:
-    dependency: "direct main"
-    description:
-      name: websok
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.2"
+    version: "2.0.0"
   win32:
     dependency: transitive
     description:

@@ -4,8 +4,8 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/user.dart';
 import 'package:flappwritechat/res/constants.dart';
-import 'package:websok/html.dart';
-import 'package:websok/websok.dart';
+// import 'package:websok/html.dart';
+// import 'package:websok/websok.dart';
 
 class ApiService {
   final Client client = Client();
@@ -84,8 +84,9 @@ class ApiService {
     }
   }
 
-  Websok realTimeChannels(String channel) {
-    final sok = HTMLWebsok(
+  RTSub realTimeChannels(String channel) {
+    return client.subscribe([channel]);
+    /* final sok = HTMLWebsok(
         host: AppConstants.host,
         path: 'v1/realtime',
         tls: false,
@@ -94,7 +95,7 @@ class ApiService {
           "channels[]": "documents.$channel",
         })
       ..connect();
-    return sok;
+    return sok; */
   }
 
   addMessage({Map<String, dynamic> data, String channelId}) async {

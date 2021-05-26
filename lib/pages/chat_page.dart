@@ -3,13 +3,14 @@
  * profile: https://github.com/lohanidamodar
   */
 import 'dart:convert';
+import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/message.dart';
 import 'package:flappwritechat/services/api_service.dart';
 import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:websok/websok.dart';
+// import 'package:websok/websok.dart';
 
 class ChatPage extends StatefulWidget {
   final Channel channel;
@@ -24,14 +25,35 @@ class _ChatPageState extends State<ChatPage> {
   String text;
   TextEditingController _controller;
   List<Message> messages;
-  Websok sok;
+  RTSub subscription;
+  // Websok sok;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
     messages = widget.channel.messages.reversed.toList();
-    sok = ApiService.instance.realTimeChannels(widget.channel.id);
+    try {
+
+      subscription =
+          ApiService.instance.realTimeChannels("documents.${widget.channel.id}");
+      final sub2 = ApiService.instance.realTimeChannels('documents');
+      final sub3 = ApiService.instance.realTimeChannels('collections');
+      // sub2.close();
+      sub3.close();
+      subscription.stream?.listen((data) {
+        data = json.decode(data);
+        if (data['payload'] != null) {
+          setState(() {
+            messages = Channel.fromMap(data['payload']).messages;
+            messages = messages.reversed.toList();
+          });
+        }
+      });
+    } on AppwriteException catch(e) {
+      print(e.message);
+    }
+    /* sok = ApiService.instance.realTimeChannels(widget.channel.id);
     sok.listen(onData: (data) {
       print(data);
       data = json.decode(data);
@@ -41,15 +63,16 @@ class _ChatPageState extends State<ChatPage> {
           messages = messages.reversed.toList();
         });
       }
-    });
+    }); */
     _controller.clear();
   }
 
   @override
   void dispose() {
-    if (sok?.isActive ?? false) {
+    /* if (sok?.isActive ?? false) {
       sok.close(1000);
-    }
+    } */
+    subscription?.close();
     super.dispose();
   }
 
@@ -147,6 +170,7 @@ class _ChatPageState extends State<ChatPage> {
           current ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(width: current ? 30.0 : 20.0),
+
         ///Chat bubbles
         Container(
           padding: EdgeInsets.only(
