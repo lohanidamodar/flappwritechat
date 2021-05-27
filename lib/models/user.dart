@@ -8,17 +8,17 @@ class User {
   final String email;
   final Map<String, dynamic> prefs;
   User({
-    this.id,
-    this.name,
-    this.email,
-    this.prefs,
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.prefs,
   });
 
   User copyWith({
-    String id,
-    String name,
-    String email,
-    Map<String, dynamic> prefs,
+    String? id,
+    String? name,
+    String? email,
+    Map<String, dynamic>? prefs,
   }) {
     return User(
       id: id ?? this.id,
@@ -38,8 +38,6 @@ class User {
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
     return User(
       id: map['\$id'],
       name: map['name'],

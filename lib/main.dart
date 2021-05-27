@@ -1,3 +1,4 @@
+import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/pages/chat_page.dart';
 import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/login.dart';
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             case 'chat':
             default:
               return ChatPage(
-                channel: settings.arguments,
+                channel: settings.arguments as Channel,
               );
           }
         });

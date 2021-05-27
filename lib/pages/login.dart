@@ -40,7 +40,7 @@ class LoginPage extends ConsumerWidget {
                 Text(
                   "Welcome",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline3.copyWith(
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
                         color: Colors.white,
                       ),
                 ),
@@ -68,7 +68,7 @@ class LoginPage extends ConsumerWidget {
                       Text(
                         "Log In",
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5.copyWith(
+                        style: Theme.of(context).textTheme.headline5?.copyWith(
                               color: Colors.red,
                             ),
                       ),

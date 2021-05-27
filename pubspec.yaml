@@ -4,18 +4,22 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   appwrite: ^0.4.0-dev.1
   flutter_riverpod: ^0.13.0
-  # websok: ^2.1.2
 
 dependency_overrides:
   appwrite:
-    path: /home/dlohani/Documents/projects/appwrite/sdk-generator/examples/flutter
+    path: /home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter
+  web_socket_channel:
+    path: /home/dlohani/Documents/projects/appwrite/sdks/web_socket_channel
+    # git:
+    #   url: https://github.com/lohanidamodar/web_socket_channel
+    #   ref: feat-headers
 
 dev_dependencies:
   flutter_test:

@@ -9,15 +9,15 @@ class Channel {
   final String title;
   final List<Message> messages;
   Channel({
-    this.id,
-    this.title,
-    this.messages,
+    required this.id,
+    required this.title,
+    required this.messages,
   });
 
   Channel copyWith({
-    String id,
-    String title,
-    List<Message> messages,
+    String? id,
+    String? title,
+    List<Message>? messages,
   }) {
     return Channel(
       id: id ?? this.id,
@@ -30,13 +30,11 @@ class Channel {
     return {
       'id': id,
       'title': title,
-      'messages': messages?.map((x) => x?.toMap())?.toList(),
+      'messages': messages.map((x) => x.toMap()).toList(),
     };
   }
 
   factory Channel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
     return Channel(
       id: map['\$id'],
       title: map['title'],

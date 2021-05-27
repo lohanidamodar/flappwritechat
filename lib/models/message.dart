@@ -6,17 +6,17 @@ class Message {
   final String senderId;
   final String senderName;
   Message({
-    this.content,
-    this.id,
-    this.senderId,
-    this.senderName,
+    required this.content,
+    required this.id,
+    required this.senderId,
+    required this.senderName,
   });
 
   Message copyWith({
-    String content,
-    String id,
-    String senderId,
-    String senderName,
+    String? content,
+    String? id,
+    String? senderId,
+    String? senderName,
   }) {
     return Message(
       content: content ?? this.content,
@@ -35,12 +35,10 @@ class Message {
     };
   }
 
-  factory Message.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
+  factory Message.fromMap(Map<String, dynamic> map) {  
     return Message(
       content: map['content'],
-      id: map['id'],
+      id: map['id'] ?? '',
       senderId: map['senderId'],
       senderName: map['senderName'],
     );

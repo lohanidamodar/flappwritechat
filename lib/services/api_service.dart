@@ -9,9 +9,10 @@ import 'package:flappwritechat/res/constants.dart';
 
 class ApiService {
   final Client client = Client();
-  Account account;
-  Database db;
-  static ApiService _instance;
+  late Account account;
+  late Database db;
+  late Realtime realtime;
+  static ApiService? _instance;
 
   ApiService._internal() {
     client
@@ -19,16 +20,20 @@ class ApiService {
         .setProject(AppConstants.projectId);
     account = Account(client);
     db = Database(client);
+    realtime = Realtime(client);
   }
 
   static ApiService get instance {
     if (_instance == null) {
       _instance = ApiService._internal();
     }
-    return _instance;
+    return _instance!;
   }
 
-  Future<bool> signup({String name, String email, String password}) async {
+  Future<bool> signup(
+      {required String name,
+      required String email,
+      required String password}) async {
     try {
       await account.create(name: name, email: email, password: password);
       return true;
@@ -37,7 +42,8 @@ class ApiService {
       return false;
     }
   }
-  Future<bool> login({String email, String password}) async {
+
+  Future<bool> login({required String email, required String password}) async {
     try {
       await account.createSession(email: email, password: password);
       return true;
@@ -57,7 +63,7 @@ class ApiService {
     }
   }
 
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     try {
       final res = await account.get();
       return User.fromMap(res.data);
@@ -67,7 +73,7 @@ class ApiService {
     }
   }
 
-  Future<Channel> addChannel(String title) async {
+  Future<Channel?> addChannel(String title) async {
     try {
       final res = await db.createDocument(
         collectionId: AppConstants.channelsCollection,
@@ -85,7 +91,7 @@ class ApiService {
   }
 
   RTSub realTimeChannels(String channel) {
-    return client.subscribe([channel]);
+    return realtime.subscribe([channel]);
     /* final sok = HTMLWebsok(
         host: AppConstants.host,
         path: 'v1/realtime',
@@ -98,7 +104,8 @@ class ApiService {
     return sok; */
   }
 
-  addMessage({Map<String, dynamic> data, String channelId}) async {
+  addMessage(
+      {required Map<String, dynamic> data, required String channelId}) async {
     try {
       await db.createDocument(
         collectionId: AppConstants.messagesCollection,

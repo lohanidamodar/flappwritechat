@@ -11,37 +11,34 @@ import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:websok/websok.dart';
-
+import 'dart:io';
 class ChatPage extends StatefulWidget {
   final Channel channel;
 
-  const ChatPage({Key key, this.channel}) : super(key: key);
+  const ChatPage({Key? key, required this.channel}) : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
-  String text;
-  TextEditingController _controller;
-  List<Message> messages;
-  RTSub subscription;
+  String? text;
+  late TextEditingController _controller;
+  late List<Message> messages;
+  RTSub? subscription;
   // Websok sok;
 
   @override
   void initState() {
     super.initState();
+    
     _controller = TextEditingController();
     messages = widget.channel.messages.reversed.toList();
     try {
+      subscription = ApiService.instance
+          .realTimeChannels("documents.${widget.channel.id}");
 
-      subscription =
-          ApiService.instance.realTimeChannels("documents.${widget.channel.id}");
-      final sub2 = ApiService.instance.realTimeChannels('documents');
-      final sub3 = ApiService.instance.realTimeChannels('collections');
-      // sub2.close();
-      sub3.close();
-      subscription.stream?.listen((data) {
+      subscription?.stream.listen((data) {
         data = json.decode(data);
         if (data['payload'] != null) {
           setState(() {
@@ -50,7 +47,7 @@ class _ChatPageState extends State<ChatPage> {
           });
         }
       });
-    } on AppwriteException catch(e) {
+    } on AppwriteException catch (e) {
       print(e.message);
     }
     /* sok = ApiService.instance.realTimeChannels(widget.channel.id);
@@ -94,7 +91,7 @@ class _ChatPageState extends State<ChatPage> {
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
                 Message m = messages[index];
-                if (m.senderId == context.read(userProvider).state.id)
+                if (m.senderId == context.read(userProvider).state?.id)
                   return _buildMessageRow(m, current: true);
                 return _buildMessageRow(m, current: false);
               },
@@ -151,18 +148,22 @@ class _ChatPageState extends State<ChatPage> {
     if (_controller.text.isEmpty) return;
     FocusScope.of(context).requestFocus(FocusNode());
     final user = context.read(userProvider).state;
-    await ApiService.instance.addMessage(
-      data: {
-        "content": _controller.text,
-        "senderId": user.id,
-        "senderName": user.name
-      },
-      channelId: widget.channel.id,
-    );
-    _controller.clear();
+    try {
+      await ApiService.instance.addMessage(
+        data: {
+          "content": _controller.text,
+          "senderId": user?.id,
+          "senderName": user?.name
+        },
+        channelId: widget.channel.id,
+      );
+      _controller.clear();
+    } on AppwriteException catch (e) {
+      print(e.message);
+    }
   }
 
-  Row _buildMessageRow(Message message, {bool current}) {
+  Row _buildMessageRow(Message message, {required bool current}) {
     return Row(
       mainAxisAlignment:
           current ? MainAxisAlignment.end : MainAxisAlignment.start,
