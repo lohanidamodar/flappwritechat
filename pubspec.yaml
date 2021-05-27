@@ -9,17 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  appwrite: ^0.4.0-dev.1
+  appwrite: ^0.6.2
   flutter_riverpod: ^0.13.0
 
 dependency_overrides:
   appwrite:
-    path: /home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter
-  web_socket_channel:
-    path: /home/dlohani/Documents/projects/appwrite/sdks/web_socket_channel
-    # git:
-    #   url: https://github.com/lohanidamodar/web_socket_channel
-    #   ref: feat-headers
+    git:
+      url: https://github.com/appwrite/sdk-for-flutter
+      ref: feat-realtime
 
 dev_dependencies:
   flutter_test:

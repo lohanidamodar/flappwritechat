@@ -4,9 +4,11 @@ packages:
   appwrite:
     dependency: "direct main"
     description:
-      path: "/home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter"
-      relative: false
-    source: path
+      path: "."
+      ref: feat-realtime
+      resolved-ref: "53cff81ab95dace67ffd4e495b3abf23b54a9a27"
+      url: "https://github.com/appwrite/sdk-for-flutter"
+    source: git
     version: "0.6.2"
   async:
     dependency: transitive
@@ -477,11 +479,11 @@ packages:
     source: hosted
     version: "2.1.0"
   web_socket_channel:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
-      path: "/home/dlohani/Documents/projects/appwrite/sdks/web_socket_channel"
-      relative: false
-    source: path
+      name: web_socket_channel
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "2.1.0"
   win32:
     dependency: transitive

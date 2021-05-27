@@ -90,7 +90,7 @@ class ApiService {
     }
   }
 
-  RTSub realTimeChannels(String channel) {
+  RealtimeSubscription realTimeChannels(String channel) {
     return realtime.subscribe([channel]);
     /* final sok = HTMLWebsok(
         host: AppConstants.host,

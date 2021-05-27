@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
   String? text;
   late TextEditingController _controller;
   late List<Message> messages;
-  RTSub? subscription;
+  RealtimeSubscription? subscription;
   // Websok sok;
 
   @override
