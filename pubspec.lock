@@ -6,7 +6,7 @@ packages:
     description:
       path: "."
       ref: feat-realtime
-      resolved-ref: "53cff81ab95dace67ffd4e495b3abf23b54a9a27"
+      resolved-ref: "74e677e2b70bc3da504490964fea26292cb28642"
       url: "https://github.com/appwrite/sdk-for-flutter"
     source: git
     version: "0.6.2"
@@ -481,9 +481,11 @@ packages:
   web_socket_channel:
     dependency: transitive
     description:
-      name: web_socket_channel
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: feat-headers
+      resolved-ref: "8ffcb0c7821d008287e5d4b57b0835b2e64c39c6"
+      url: "https://github.com/lohanidamodar/web_socket_channel"
+    source: git
     version: "2.1.0"
   win32:
     dependency: transitive

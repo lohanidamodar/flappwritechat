@@ -6,6 +6,16 @@ class AppConstants {
   static const String messagesCollection = '60af42e831fd3';
 }
 
+/* {projectId: , messagesCollection: , channelsCollection: , endpoint: } */
+
+/* class AppConstants {
+  static const String endpoint = 'https://testreal1.appwrite.org/v1';
+  static const String host = 'testreal1.appwrite.org';
+  static const String projectId = '60b0a3d01e848';
+  static const String channelsCollection = '60b0a3d5a5f2e';
+  static const String messagesCollection = '60b0a3d53d6e5';
+} */
+
 /* class AppConstants {
   static const String endpoint = 'https://localhost/v1';
   static const String host = 'localhost';

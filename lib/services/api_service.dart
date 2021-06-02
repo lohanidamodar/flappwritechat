@@ -92,16 +92,6 @@ class ApiService {
 
   RealtimeSubscription realTimeChannels(String channel) {
     return realtime.subscribe([channel]);
-    /* final sok = HTMLWebsok(
-        host: AppConstants.host,
-        path: 'v1/realtime',
-        tls: false,
-        query: {
-          "project": AppConstants.projectId,
-          "channels[]": "documents.$channel",
-        })
-      ..connect();
-    return sok; */
   }
 
   addMessage(

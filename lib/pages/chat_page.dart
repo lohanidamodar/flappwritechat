@@ -10,8 +10,7 @@ import 'package:flappwritechat/services/api_service.dart';
 import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:websok/websok.dart';
-import 'dart:io';
+
 class ChatPage extends StatefulWidget {
   final Channel channel;
 
@@ -26,7 +25,6 @@ class _ChatPageState extends State<ChatPage> {
   late TextEditingController _controller;
   late List<Message> messages;
   RealtimeSubscription? subscription;
-  // Websok sok;
 
   @override
   void initState() {
@@ -50,25 +48,11 @@ class _ChatPageState extends State<ChatPage> {
     } on AppwriteException catch (e) {
       print(e.message);
     }
-    /* sok = ApiService.instance.realTimeChannels(widget.channel.id);
-    sok.listen(onData: (data) {
-      print(data);
-      data = json.decode(data);
-      if (data['payload'] != null) {
-        setState(() {
-          messages = Channel.fromMap(data['payload']).messages;
-          messages = messages.reversed.toList();
-        });
-      }
-    }); */
     _controller.clear();
   }
 
   @override
   void dispose() {
-    /* if (sok?.isActive ?? false) {
-      sok.close(1000);
-    } */
     subscription?.close();
     super.dispose();
   }
