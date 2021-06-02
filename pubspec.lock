@@ -6,7 +6,7 @@ packages:
     description:
       path: "."
       ref: feat-realtime
-      resolved-ref: "74e677e2b70bc3da504490964fea26292cb28642"
+      resolved-ref: "29d2e36ab3ebe31d04e0c131c8fb21e170dac231"
       url: "https://github.com/appwrite/sdk-for-flutter"
     source: git
     version: "0.6.2"
