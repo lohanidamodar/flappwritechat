@@ -62,6 +62,7 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   @override
   void dispose() {
+    print("closing the connection ${widget.channel.title}");
     subscription?.close();
     super.dispose();
   }

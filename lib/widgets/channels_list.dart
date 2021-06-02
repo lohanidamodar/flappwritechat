@@ -11,8 +11,9 @@ final titleControllerProvider = Provider((ref) => TextEditingController());
 
 class ChannelsList extends StatefulWidget {
   final Function(Channel) onTapChannel;
+  final Channel? selectedChannel;
 
-  const ChannelsList({Key? key, required this.onTapChannel}) : super(key: key);
+  const ChannelsList({Key? key, required this.onTapChannel, this.selectedChannel}) : super(key: key);
   @override
   _ChannelsListState createState() => _ChannelsListState();
 }
@@ -90,6 +91,7 @@ class _ChannelsListState extends State<ChannelsList> {
         itemBuilder: (context, index) {
           final channel = channels[index];
           return ListTile(
+            selected: channel == widget.selectedChannel,
             title: Text(channel.title),
             trailing: IconButton(
               icon: Icon(Icons.delete),

@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
                           _selected = channel;
                         });
                       },
+                      selectedChannel: _selected,
                     ),
                   ),
                 ),
