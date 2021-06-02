@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: Text('Home'),
         actions: [
           IconButton(
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Navigator.pushNamed(context, 'profile'),
           ),
         ],
-      ),
+      ), */
       body: ResponsiveBuilder(
         builder: (context, sizingInformation) {
           if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ||

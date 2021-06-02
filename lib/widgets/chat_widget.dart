@@ -71,6 +71,10 @@ class _ChatWidgetState extends State<ChatWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        AppBar(
+          elevation: 0,
+          title: Text(widget.channel.title),
+        ),
         Expanded(
           child: ListView.separated(
             physics: BouncingScrollPhysics(),

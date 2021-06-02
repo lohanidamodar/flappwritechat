@@ -13,7 +13,9 @@ class ChannelsList extends StatefulWidget {
   final Function(Channel) onTapChannel;
   final Channel? selectedChannel;
 
-  const ChannelsList({Key? key, required this.onTapChannel, this.selectedChannel}) : super(key: key);
+  const ChannelsList(
+      {Key? key, required this.onTapChannel, this.selectedChannel})
+      : super(key: key);
   @override
   _ChannelsListState createState() => _ChannelsListState();
 }
@@ -103,6 +105,20 @@ class _ChannelsListState extends State<ChannelsList> {
           );
         },
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.grey.shade300,
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 60,
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () => Navigator.pushNamed(context, 'profile'),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () async {
@@ -116,14 +132,8 @@ class _ChannelsListState extends State<ChannelsList> {
               actions: [
                 TextButton(
                   onPressed: () async {
-                    final channel =
-                        await ApiService.instance.addChannel(_controller.text);
-                    /* if (channel != null) {
-                      final cp = context.read(channelsProvider);
-                      final channels = cp.state;
-                      channels.add(channel);
-                      cp.state = channels;
-                    } */
+                    await ApiService.instance.addChannel(_controller.text);
+                    _controller.clear();
                     Navigator.pop(context);
                   },
                   child: Text("Save"),
