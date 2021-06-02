@@ -123,4 +123,14 @@ class ApiService {
       return [];
     }
   }
+
+  Future<void> deleteChannel(Channel channel) async {
+    try {
+      await db.deleteDocument(
+          collectionId: AppConstants.channelsCollection,
+          documentId: channel.id);
+    } on AppwriteException catch (e) {
+      print(e.message);
+    }
+  }
 }

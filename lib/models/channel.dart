@@ -38,13 +38,15 @@ class Channel {
     return Channel(
       id: map['\$id'],
       title: map['title'],
-      messages:  List<Message>.from((map['messages'] ?? []).map((x) => Message.fromMap(x))),
+      messages: List<Message>.from(
+          (map['messages'] ?? []).map((x) => Message.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Channel.fromJson(String source) => Channel.fromMap(json.decode(source));
+  factory Channel.fromJson(String source) =>
+      Channel.fromMap(json.decode(source));
 
   @override
   String toString() => 'Channel(id: $id, title: $title, messages: $messages)';
@@ -52,11 +54,8 @@ class Channel {
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
-  
-    return o is Channel &&
-      o.id == id &&
-      o.title == title &&
-      listEquals(o.messages, messages);
+
+    return o is Channel && o.id == id;
   }
 
   @override

@@ -1,8 +1,8 @@
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/pages/chat_page.dart';
-import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/login.dart';
 import 'package:flappwritechat/pages/profile.dart';
+import 'package:flappwritechat/pages/home.dart';
 import 'package:flappwritechat/pages/signup.dart';
 import 'package:flappwritechat/services/api_service.dart';
 import 'package:flappwritechat/state/state.dart';
