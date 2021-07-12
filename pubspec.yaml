@@ -15,6 +15,7 @@ dependencies:
 
 dependency_overrides:
   appwrite:
+    # path: /home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter
     git:
       url: https://github.com/appwrite/sdk-for-flutter
       ref: feat-realtime
