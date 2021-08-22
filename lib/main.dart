@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/pages/chat_page.dart';
 import 'package:flappwritechat/pages/login.dart';
@@ -15,6 +18,73 @@ void main() {
   ));
 }
 
+class MyApp2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Material App',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Material App Bar'),
+        ),
+        body: Counter(),
+      ),
+    );
+  }
+}
+
+class Counter extends StatefulWidget {
+  Counter({Key? key}) : super(key: key);
+
+  @override
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  late Account account;
+  late Realtime realtime;
+  Client client = Client();
+  void _incrementCounter() async {
+    try {
+      final res = await account.createSession(
+          email: 'user@example.com', password: 'password');
+      print(res.data);
+      RealtimeSubscription sub = realtime.subscribe(['collections']);
+      print('Got Sub');
+      sub.stream.listen((event) {
+        print(event);
+        var data = json.decode(event);
+        print(data);
+      });
+      setState(() {});
+    } on AppwriteException catch (e) {
+      print(e.message);
+    }
+  }
+
+  @override
+  void initState() {
+    client.setEndpoint('http://192.168.1.64/v1').setProject('60ec2bb7229ff');
+    realtime = Realtime(client);
+    account = Account(client);
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Hello"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: _incrementCounter,
+      ),
+    );
+  }
+}
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -28,6 +98,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   _getUser() async {
+    final sub = ApiService.instance.realTimeChannels('documents');
     final user = await ApiService.instance.getUser();
     if (user != null) {
       context.read(userProvider).state = user;

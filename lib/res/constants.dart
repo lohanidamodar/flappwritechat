@@ -1,9 +1,11 @@
 class AppConstants {
+  // static const String endpoint = 'https://localhost/v1';
   static const String endpoint = 'https://dlrealtime.appwrite.org/v1';
   static const String host = 'dlrealtime.appwrite.org';
-  static const String projectId = '60af42e7832af';
-  static const String channelsCollection = '60af42e86933f';
-  static const String messagesCollection = '60af42e831fd3';
+  // static const String projectId = 'test1';
+  static const String projectId = '60ed336a3008c';
+  static const String channelsCollection = '611cce912f770';
+  static const String messagesCollection = '611e3a77db584';
 }
 
 /* {projectId: , messagesCollection: , channelsCollection: , endpoint: } */

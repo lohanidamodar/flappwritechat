@@ -1,7 +1,3 @@
-/**
- * Author: Damodar Lohani
- * profile: https://github.com/lohanidamodar
-  */
 import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
@@ -46,7 +42,6 @@ class _ChatWidgetState extends State<ChatWidget> {
           .realTimeChannels("documents.${widget.channel.id}");
 
       subscription?.stream.listen((data) {
-        data = json.decode(data);
         if (data['payload'] != null) {
           setState(() {
             messages = Channel.fromMap(data['payload']).messages;
@@ -139,7 +134,7 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   _save() async {
     if (_controller.text.isEmpty) return;
-    FocusScope.of(context).requestFocus(FocusNode());
+    // FocusScope.of(context).requestFocus(FocusNode());
     final user = context.read(userProvider).state;
     try {
       await ApiService.instance.addMessage(

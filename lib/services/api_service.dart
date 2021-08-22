@@ -17,6 +17,7 @@ class ApiService {
   ApiService._internal() {
     client
         .setEndpoint(AppConstants.endpoint)
+        .setSelfSigned()
         .setProject(AppConstants.projectId);
     account = Account(client);
     db = Database(client);

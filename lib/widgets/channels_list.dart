@@ -35,7 +35,6 @@ class _ChannelsListState extends State<ChannelsList> {
       subscription = ApiService.instance.realTimeChannels(
           "collections.${AppConstants.channelsCollection}.documents");
       subscription?.stream.listen((data) {
-        data = json.decode(data);
         print(data);
         if (data["payload"] != null) {
           switch (data["event"]) {
