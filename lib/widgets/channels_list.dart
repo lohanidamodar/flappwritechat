@@ -32,7 +32,7 @@ class _ChannelsListState extends State<ChannelsList> {
     _getChannels();
     try {
       if (subscription != null) return;
-      subscription = ApiService.instance.realTimeChannels(
+      subscription = ApiService.instance.subscribe(
           "collections.${AppConstants.channelsCollection}.documents");
       subscription?.stream.listen((data) {
         print(data);
@@ -86,24 +86,28 @@ class _ChannelsListState extends State<ChannelsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: channels.length,
-        itemBuilder: (context, index) {
-          final channel = channels[index];
-          return ListTile(
-            selected: channel == widget.selectedChannel,
-            title: Text(channel.title),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () async {
-                await ApiService.instance.deleteChannel(channel);
+      body: channels.isEmpty
+          ? Center(
+              child: Text("Create a channel to start"),
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              itemCount: channels.length,
+              itemBuilder: (context, index) {
+                final channel = channels[index];
+                return ListTile(
+                  selected: channel == widget.selectedChannel,
+                  title: Text(channel.title),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () async {
+                      await ApiService.instance.deleteChannel(channel);
+                    },
+                  ),
+                  onTap: () => widget.onTapChannel(channel),
+                );
               },
             ),
-            onTap: () => widget.onTapChannel(channel),
-          );
-        },
-      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey.shade300,
         elevation: 0,

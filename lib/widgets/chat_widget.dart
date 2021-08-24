@@ -39,7 +39,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     messages = widget.channel.messages.reversed.toList();
     try {
       subscription = ApiService.instance
-          .realTimeChannels("documents.${widget.channel.id}");
+          .subscribe("documents.${widget.channel.id}");
 
       subscription?.stream.listen((data) {
         if (data['payload'] != null) {

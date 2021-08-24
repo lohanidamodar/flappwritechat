@@ -98,7 +98,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   _getUser() async {
-    final sub = ApiService.instance.realTimeChannels('documents');
     final user = await ApiService.instance.getUser();
     if (user != null) {
       context.read(userProvider).state = user;

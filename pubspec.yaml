@@ -10,8 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   appwrite:
-    path: /home/dlohani/Documents/projects/appwrite/sdk-generator/examples/flutter
-    # path: /home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter
+    # path: /home/dlohani/Documents/projects/appwrite/sdk-generator/examples/flutter
+    path: /home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter
   flutter_riverpod: ^0.13.0
   responsive_builder: ^0.4.1
 

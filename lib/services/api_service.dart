@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/user.dart';
 import 'package:flappwritechat/res/constants.dart';
-// import 'package:websok/html.dart';
-// import 'package:websok/websok.dart';
 
 class ApiService {
   final Client client = Client();
@@ -91,7 +87,7 @@ class ApiService {
     }
   }
 
-  RealtimeSubscription realTimeChannels(String channel) {
+  RealtimeSubscription subscribe(String channel) {
     return realtime.subscribe([channel]);
   }
 

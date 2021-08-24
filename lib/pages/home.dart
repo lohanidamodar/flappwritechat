@@ -48,7 +48,12 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     child: _selected != null
                         ? ChatWidget(channel: _selected!)
-                        : Text("Select a channel"),
+                        : Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Center(
+                                child:
+                                    Text("Select a channel to begin chatting")),
+                          ),
                   ),
                 )
               ],
