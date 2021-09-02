@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/res/constants.dart';
@@ -35,23 +33,22 @@ class _ChannelsListState extends State<ChannelsList> {
       subscription = ApiService.instance.subscribe(
           "collections.${AppConstants.channelsCollection}.documents");
       subscription?.stream.listen((data) {
-        print(data);
-        if (data["payload"] != null) {
-          switch (data["event"]) {
+        if (data.payload.isNotEmpty) {
+          switch (data.event) {
             case "database.documents.create":
-              var channel = Channel.fromMap(data['payload']);
+              var channel = Channel.fromMap(data.payload);
               if (!channels.contains(channel)) {
                 channels.add(channel);
                 setState(() {});
               }
               break;
             case "database.documents.delete":
-              var channel = Channel.fromMap(data['payload']);
+              var channel = Channel.fromMap(data.payload);
               channels.removeWhere((element) => element.id == channel.id);
               setState(() {});
               break;
             case "database.documents.update":
-              var channel = Channel.fromMap(data['payload']);
+              var channel = Channel.fromMap(data.payload);
               channels = channels
                   .map((old) => old.id == channel.id ? channel : old)
                   .toList();

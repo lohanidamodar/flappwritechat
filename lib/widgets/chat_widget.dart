@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
 import 'package:flappwritechat/models/channel.dart';
 import 'package:flappwritechat/models/message.dart';
@@ -42,9 +41,9 @@ class _ChatWidgetState extends State<ChatWidget> {
           .subscribe("documents.${widget.channel.id}");
 
       subscription?.stream.listen((data) {
-        if (data['payload'] != null) {
+        if (data.payload.isNotEmpty) {
           setState(() {
-            messages = Channel.fromMap(data['payload']).messages;
+            messages = Channel.fromMap(data.payload).messages;
             messages = messages.reversed.toList();
           });
         }

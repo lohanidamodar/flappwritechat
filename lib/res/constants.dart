@@ -1,6 +1,6 @@
 class AppConstants {
   // static const String endpoint = 'https://localhost/v1';
-  static const String endpoint = 'https://dlrealtime.appwrite.org/v1';
+  static const String endpoint = 'http://dlrealtime.appwrite.org/v1';
   static const String host = 'dlrealtime.appwrite.org';
   // static const String projectId = 'test1';
   static const String projectId = '60ed336a3008c';

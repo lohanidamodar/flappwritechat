@@ -53,8 +53,6 @@ class _CounterState extends State<Counter> {
       print('Got Sub');
       sub.stream.listen((event) {
         print(event);
-        var data = json.decode(event);
-        print(data);
       });
       setState(() {});
     } on AppwriteException catch (e) {
