@@ -4,10 +4,10 @@ packages:
   appwrite:
     dependency: "direct main"
     description:
-      path: "/home/dlohani/Documents/projects/appwrite/sdks/sdk-for-flutter"
-      relative: false
-    source: path
-    version: "0.6.4"
+      name: appwrite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   async:
     dependency: transitive
     description:
