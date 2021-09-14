@@ -37,8 +37,8 @@ class _ChatWidgetState extends State<ChatWidget> {
     _controller = TextEditingController();
     messages = widget.channel.messages.reversed.toList();
     try {
-      subscription = ApiService.instance
-          .subscribe("documents.${widget.channel.id}");
+      subscription =
+          ApiService.instance.subscribe("documents.${widget.channel.id}");
 
       subscription?.stream.listen((data) {
         if (data.payload.isNotEmpty) {
@@ -206,9 +206,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                             message.content,
                             softWrap: true,
                             maxLines: 2,
-                            style: TextStyle(
-                              color: current ? Colors.white : Colors.black,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(
+                                  color: current ? Colors.white : Colors.black,
+                                ),
                           ),
                         ),
                       ],
