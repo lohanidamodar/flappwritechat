@@ -1,18 +1,19 @@
 import 'package:flappwritechat/services/api_service.dart';
-import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final emailControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
-final passwordControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
-final nameControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
-
-class SignupPage extends ConsumerWidget {
+class SignupPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -81,19 +82,19 @@ class SignupPage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 40.0),
                       TextField(
-                        controller: watch(nameControllerProvider),
+                        controller: _nameController,
                         decoration: InputDecoration(
                           labelText: "Enter name",
                         ),
                       ),
                       TextField(
-                        controller: watch(emailControllerProvider),
+                        controller: _emailController,
                         decoration: InputDecoration(
                           labelText: "Enter username",
                         ),
                       ),
                       TextField(
-                        controller: watch(passwordControllerProvider),
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: "Enter password",
@@ -104,13 +105,13 @@ class SignupPage extends ConsumerWidget {
                         child: Text("SUBMIT"),
                         onPressed: () async {
                           final signedUp = await ApiService.instance.signup(
-                            name: context.read(nameControllerProvider).text,
-                            email: context.read(emailControllerProvider).text,
-                            password:
-                                context.read(passwordControllerProvider).text,
+                            name: _nameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
                           );
-                          if(signedUp) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Signup successful. Login now")));
+                          if (signedUp) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text("Signup successful. Login now")));
                             Navigator.pop(context);
                           }
                         },

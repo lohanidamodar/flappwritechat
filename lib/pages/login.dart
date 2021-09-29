@@ -3,14 +3,16 @@ import 'package:flappwritechat/state/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final emailControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
-final passwordControllerProvider =
-    Provider<TextEditingController>((ref) => TextEditingController());
-
-class LoginPage extends ConsumerWidget {
+class LoginPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -74,13 +76,13 @@ class LoginPage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 40.0),
                       TextField(
-                        controller: watch(emailControllerProvider),
+                        controller: _emailController,
                         decoration: InputDecoration(
                           labelText: "Enter username",
                         ),
                       ),
                       TextField(
-                        controller: watch(passwordControllerProvider),
+                        controller: _passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: "Enter password",
@@ -91,14 +93,12 @@ class LoginPage extends ConsumerWidget {
                         child: Text("SUBMIT"),
                         onPressed: () async {
                           final loggedIn = await ApiService.instance.login(
-                              email: context.read(emailControllerProvider).text,
-                              password: context
-                                  .read(passwordControllerProvider)
-                                  .text);
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
                           if (loggedIn) {
                             final user = await ApiService.instance.getUser();
                             context.read(userProvider).state = user;
-                            context.read(isLoggedInProvider).state = true;
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -129,7 +129,7 @@ class LoginPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.pushNamed(context, 'signup'),
         label: Text("Sign Up"),
-        icon: Icon(Icons.arrow_forward), 
+        icon: Icon(Icons.arrow_forward),
       ),
     );
   }

@@ -48,7 +48,7 @@ class _CounterState extends State<Counter> {
     try {
       final res = await account.createSession(
           email: 'user@example.com', password: 'password');
-      print(res.data);
+      print(res);
       RealtimeSubscription sub = realtime.subscribe(['collections']);
       print('Got Sub');
       sub.stream.listen((event) {
@@ -99,7 +99,6 @@ class _MyAppState extends State<MyApp> {
     final user = await ApiService.instance.getUser();
     if (user != null) {
       context.read(userProvider).state = user;
-      context.read(isLoggedInProvider).state = true;
     }
   }
 
@@ -136,7 +135,7 @@ class _MyAppState extends State<MyApp> {
 class AuthChecker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final isLoggedIn = watch(isLoggedInProvider).state;
+    final isLoggedIn = watch(userProvider).state != null;
     return isLoggedIn ? HomePage() : LoginPage();
   }
 }

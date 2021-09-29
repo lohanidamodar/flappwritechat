@@ -1,6 +1,6 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flappwritechat/models/channel.dart';
-import 'package:flappwritechat/models/user.dart';
 import 'package:flappwritechat/res/constants.dart';
 
 class ApiService {
@@ -61,8 +61,7 @@ class ApiService {
 
   Future<User?> getUser() async {
     try {
-      final res = await account.get();
-      return User.fromMap(res.data);
+      return await account.get();
     } on AppwriteException catch (e) {
       print(e.message);
       return null;
@@ -71,7 +70,7 @@ class ApiService {
 
   Future<Channel?> addChannel(String title) async {
     try {
-      final res = await db.createDocument(
+      final document = await db.createDocument(
         collectionId: AppConstants.channelsCollection,
         data: {
           "title": title,
@@ -79,15 +78,16 @@ class ApiService {
         read: ['role:member'],
         write: ['role:member'],
       );
-      return Channel.fromMap(res.data);
+      return document.convertTo<Channel>(
+          (data) => Channel.fromMap(Map<String, dynamic>.from(data)));
     } on AppwriteException catch (e) {
       print(e.message);
       return null;
     }
   }
 
-  RealtimeSubscription subscribe(String channel) {
-    return realtime.subscribe([channel]);
+  RealtimeSubscription subscribe(List<String> channel) {
+    return realtime.subscribe(channel);
   }
 
   addMessage(
@@ -109,11 +109,10 @@ class ApiService {
 
   Future<List<Channel>> getChannels() async {
     try {
-      final res =
+      final docList =
           await db.listDocuments(collectionId: AppConstants.channelsCollection);
-      return List<Map<String, dynamic>>.from(res.data['documents'])
-          .map((e) => Channel.fromMap(e))
-          .toList();
+      return docList.convertTo<Channel>(
+          (data) => Channel.fromMap(Map<String, dynamic>.from(data)));
     } on AppwriteException catch (e) {
       print(e.message);
       return [];

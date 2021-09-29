@@ -28,10 +28,14 @@ class _ChannelsListState extends State<ChannelsList> {
     super.initState();
     channels = [];
     _getChannels();
+    _subscribe();
+  }
+
+  _subscribe() {
     try {
       if (subscription != null) return;
       subscription = ApiService.instance.subscribe(
-          "collections.${AppConstants.channelsCollection}.documents");
+          ["collections.${AppConstants.channelsCollection}.documents"]);
       subscription?.stream.listen((data) {
         if (data.payload.isNotEmpty) {
           switch (data.event) {

@@ -38,7 +38,7 @@ class _ChatWidgetState extends State<ChatWidget> {
     messages = widget.channel.messages.reversed.toList();
     try {
       subscription =
-          ApiService.instance.subscribe("documents.${widget.channel.id}");
+          ApiService.instance.subscribe(["documents.${widget.channel.id}"]);
 
       subscription?.stream.listen((data) {
         if (data.payload.isNotEmpty) {
@@ -79,7 +79,7 @@ class _ChatWidgetState extends State<ChatWidget> {
             itemCount: messages.length,
             itemBuilder: (BuildContext context, int index) {
               Message m = messages[index];
-              if (m.senderId == context.read(userProvider).state?.id)
+              if (m.senderId == context.read(userProvider).state?.$id)
                 return _buildMessageRow(m, current: true);
               return _buildMessageRow(m, current: false);
             },
@@ -139,7 +139,7 @@ class _ChatWidgetState extends State<ChatWidget> {
       await ApiService.instance.addMessage(
         data: {
           "content": _controller.text,
-          "senderId": user?.id,
+          "senderId": user?.$id,
           "senderName": user?.name
         },
         channelId: widget.channel.id,
